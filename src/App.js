@@ -1,12 +1,12 @@
-import logo from './logo.svg';
-import './App.css';
+
+import Account from "./components/Account";
+import IntroSection from "./components/IntroSection";
 
 function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        Changes madd
-      </header>
+      {/* <IntroSection/> */}
+      <Account/>
     </div>
   );
 }
