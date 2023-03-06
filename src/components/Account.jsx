@@ -61,7 +61,7 @@ const Account = () => {
             fontSize={"2.1rem"}
             sx={{ my: 3, fontFamily: " 'Poppins', sans-serif;" }}
           >
-            Sign Up
+            Sign In
           </Typography>
           <div>
             <TextField

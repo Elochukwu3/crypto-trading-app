@@ -63,7 +63,7 @@ const IntroSection = () => {
                   color: "black",
                   ":hover": { borderColor: "white", color: "white" },
                 }}
-                endIcon={<ExitToApp/>}
+                endIcon={<ExitToApp />}
               >
                 REGISTER NOW
               </Button>
