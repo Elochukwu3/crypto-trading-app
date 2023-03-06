@@ -1,55 +1,117 @@
-import { Box, Container, TextField, Typography, Button, CssBaseline } from "@mui/material";
-import { ExitToApp } from "@mui/icons-material";
+import {
+  Box,
+  Container,
+  TextField,
+  Typography,
+  Button,
+  CssBaseline,
+  Paper,
+} from "@mui/material";
 import React from "react";
 import NaBar from "./NaBar";
-import forex from "../image/forex2.png"
-import { Outlet } from "react-router-dom";
+import { Link, Outlet } from "react-router-dom";
+import { grey, lightBlue,  pink, deepPurple } from "@mui/material/colors";
+import { ExitToApp } from "@mui/icons-material";
+import forex from "../image/forex.png";
+import { ROUTER_PATH } from "../asset/route/routePath";
 
 const Account = () => {
   return (
     <div>
       <NaBar position={"fixed"} />
-      <CssBaseline/>
       <Container
-      component={"div"}
-      maxWidth={'xl'}
+        maxWidth={"xl"}
+        component={"div"}
+        width = {"100%"}
         sx={{
           display: "flex",
-          gap:5,
-          justifyContent: 'space-around',
+          gap: 5,
           width: "100%",
           mt: 6,
+         padding: {sx: 0, sm: 0},
         }}
       >
-        <Box position={"relative"} maxWidth={'xl'} component={"div"} sx={{width:'100%',color:'white', height: '100vh',  bgcolor: "#3d1e58", flex:'1', display:'flex', flexDirection:'column', alignItems:'center',}}>
-         <div>
-         <Typography variant="h4" mb={1}>
-        Sign up now
-         </Typography>
-         <Typography variant="p" component={'div'} sx={{fontWeight: 'bold', }} mb={1}>
-        Sign up now to start trading
-         </Typography>
-         <Typography variant="h5" component={'div'} sx={{fontWeight: 'bold'}} mb={1}>
-        Smoothly and Swiftly
-         </Typography>
-         <div>
-          {/* <img src={forex} alt="" /> */}
-         </div>
-         </div>
+        <Box
+          position={"relative"}
+          component={"div"}
+          sx={{
+            width: "100%",
+            height: "100vh",
+            bgcolor: "#3d1e58",
+            flex: "1",
+            display: {sm:"flex", xs: "none"},
+           
+          }}
+        >
+          <Paper 
+          component={"div"}
+          sx={{
+                background: `url(${forex}) #3d1e58`,
+                width: "100%",  
+                minHeight: "100%",
+                color: "white",
+                backgroundRepeat: 'no-repeat',
+                backgroundPosition: "center center",
+                display: {sm:"flex", xs: "none"}, 
+                flexDirection: "column",
+                alignItems: 'center'
+              }}>
+
+        
+            <Typography variant={"h2"} fontWeight={"1000"} mb={1} mt={3}>
+              Sign up now
+            </Typography>
+            <Typography
+              variant="p"
+              component={"div"}
+              sx={{ fontWeight: "bold", fontSize: "1.3rem" }}
+              mb={1}
+              color = { pink[200]}
+              ml = {10}
+              my={3}
+            >
+              Sign up now to start trading
+            </Typography>
+            <Typography
+              variant="h4"
+              component={"div"}
+              fontWeight={"bold"}
+              mb={1}
+              
+              
+            >
+              Smoothly and Swiftly
+            </Typography>
+            <div sx={{display: "fle"}}>
+            
+              <Typography
+              variant="h5"
+              component={"div"}
+              fontWeight={"bold"}
+              sx ={{writingMode: "vertical-rl", textOrientation: "upright"}}
+              textTransform = {"uppercase"}
+              width = {400}
+              alignItems = {"left"}
+              >
+                trade now
+              </Typography>
+              </div>
+          </Paper>
         </Box>
         <Box
           sx={{
             width: { xs: "100%", sm: "50%" },
             m: 0,
             fontFamily: "'Alegreya Sans', sans-serif",
-            px:5,
+            px: 5,
           }}
         >
           <Typography
             variant="p"
             component={"div"}
             fontSize={21}
-            sx={{ my: 5 }}
+            sx={{ my: 4 }}
+            textAlign = {"center"}
           >
             We provide a full range of forex trading services for you.
           </Typography>
@@ -83,7 +145,12 @@ const Account = () => {
               variant="outlined"
               label={"Password"}
               placeholder={"strong password"}
-              sx={{ width: "100%", bgcolor: "white", mb: 4 ,  "& fieldset": { borderRadius: "30px" }}}
+              sx={{
+                width: "100%",
+                bgcolor: "white",
+                mb: 4,
+                "& fieldset": { borderRadius: "30px" },
+              }}
             />
           </div>
           <div>
@@ -93,25 +160,20 @@ const Account = () => {
                 px: 9,
                 borderRadius: 40,
                 bgcolor: "#3c115f",
-                color: "black",
-                ":hover": { borderColor: "#3c115f", color: "#3c115f" },
+                color: pink[200],
+                ":hover": { borderColor: "#3c115f", color: deepPurple[700] },
               }}
               endIcon={<ExitToApp />}
             >
               {" "}
-              REGISTER NOW{" "}
+              Sign In
             </Button>
           </div>
-          <Typography sx={{my:3, textTransform:'capitalize'}} variant='h5' component={'div'} textAlign='center'>
-         Or Sign in with Google
-          </Typography>
-
-          <Box sx={{my:3}}>
-          You don't have an account? <span>Register</span>
+          <Box sx={{ my: 3, cursor: "pointer" }} color= { pink[200]}>
+            You don't have an account? <Link to={ROUTER_PATH.CreateAccount}>Register</Link>
           </Box>
-         
         </Box>
-        <Outlet/>
+        <Outlet />
       </Container>
     </div>
   );

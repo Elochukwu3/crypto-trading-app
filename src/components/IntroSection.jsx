@@ -4,6 +4,8 @@ import { Box } from "@mui/system";
 import { deepOrange } from "@mui/material/colors";
 import React from "react";
 import { ExitToApp } from "@mui/icons-material";
+import { Link } from "react-router-dom";
+import { ROUTER_PATH } from "../asset/route/routePath";
 
 const IntroSection = () => {
   return (
@@ -53,7 +55,8 @@ const IntroSection = () => {
             >
               Start trading now with Forex Trading
             </Typography>
-            <div>
+            <Link to={ROUTER_PATH.SignIn}>
+              
               <Button
                 variant="outlined"
                 sx={{
@@ -67,7 +70,7 @@ const IntroSection = () => {
               >
                 REGISTER NOW
               </Button>
-            </div>
+            </Link>
           </Grid>
         </Grid>
       </Box>
