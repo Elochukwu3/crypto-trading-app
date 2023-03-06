@@ -11,5 +11,58 @@ body {
   font-family: 'Poppins', sans-serif;
   font-family: 'Alegreya Sans', sans-serif;
 }
+*{
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+input{
+  touch-action: none;
+}
+input:focus{
+  font-family: 'Alegreya Sans', sans-serif;
+  font-size: 18px;
+  /* background-color: #3d1e58; */
+}
+/* .cont{
+  height: 10vh;
+  background-color: black;
+  overflow-y: hidden;
+  display: flex;
+  flex-direction: column;
+  position: relative;
+} */
+/* .App{
+  max-width: 700px;
+  height: 100px;
+  margin: 100px auto 0;
+  position: relative;
+  overflow: hidden; 
+} */
+
+/* .input {
+  margin: 10px;
+  position: absolute;
+  opacity: 0;
+  transition: transform 700ms ease-in-out;
+  transform: translateY(100px);
+  width: 100%;
+}
+.tag{
+  width: 100%;
+  padding: 10px;
+  height: 6vh;
+}
+button{
+  padding: 15px;
+  background-color: black;
+  color: wheat;
+  margin-top: 50px;
+}
+.in{
+  transform: translateY(0px);
+  background-color: yellow;
+  opacity: 1;
+} */
 
 
