@@ -5,6 +5,7 @@ import {
   TextField,
   Autocomplete,
   Typography,
+  Grid,
   Button,
   Select,
   MenuItem,
@@ -14,12 +15,13 @@ import {
 import CircularProgress from "@mui/material/CircularProgress";
 import { countries } from "../asset/countries";
 import NaBar from "./NaBar";
+import { FORM_DATA } from "../asset/data/data1";
 console.log(Object.keys(countries));
 
 const CustomTextField = styled(TextField)({
   width: "100%",
   backgroundColor: "white",
-  marginBottom: "20px",
+  // marginBottom: "20px",
   "& fieldset": { borderRadius: "30px" },
 });
 
@@ -106,12 +108,39 @@ function CreateAccount() {
             Kindly provide your you details
           </Typography>
 
-          <CustomTextField
-            required
-            id="firstName"
-            label="First Name"
-            variant="standard"
-          />
+          <Grid
+            container
+            sx={{
+              height: "50vh",
+              overflowY: "hidden",
+              // backgroundColor: "blue",
+            }}
+          >
+            {FORM_DATA.map(({name, password, question}) => (
+              <Box
+                sx={{
+                  backgroundColor: "inherit",
+                  height: "100%",
+                  width: "100%",
+                  opacity: 1,
+                  transform: "translateY(0)",
+                  transition: "opacity 0.5s, transform 0.5s",
+                  display: "flex",
+                  flexDirection: "column",
+                }}
+              >
+                <Typography variant="body1" component="p" fontSize={19} my={5}>
+                  {question}
+                </Typography>
+                <CustomTextField
+                  required
+                  id="firstName"
+                  label="First Name"
+                  variant="standard"
+                />
+              </Box>
+            ))}
+          </Grid>
 
           <Button>Select Country</Button>
           <Autocomplete

@@ -1,4 +1,4 @@
-const FORM_DATA = [
+export const FORM_DATA = [
   {
     id: "firstName",
     label: "First Name",
