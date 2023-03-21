@@ -7,16 +7,14 @@ import {
   Typography,
   Grid,
   Button,
-  Select,
-  MenuItem,
-  InputLabel,
   styled,
 } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
 import { countries } from "../asset/countries";
 import NaBar from "./NaBar";
 import { FORM_DATA } from "../asset/data/data1";
-console.log(Object.keys(countries));
+import { Send } from "@mui/icons-material";
+
 
 const CustomTextField = styled(TextField)({
   width: "100%",
@@ -32,7 +30,7 @@ function sleep(delay = 0) {
 }
 
 const data = [];
-const doll = Object.entries(countries).map(([a, b]) => {
+Object.entries(countries).map(([a, b]) => {
   data.push(b);
   return data;
 });
@@ -111,13 +109,14 @@ function CreateAccount() {
           <Grid
             container
             sx={{
-              height: "50vh",
+              height: {sm:"50vh", xs:"43vh"},
               overflowY: "hidden",
-              // backgroundColor: "blue",
+  
             }}
           >
-            {FORM_DATA.map(({name, password, question}) => (
-              <Box
+            {FORM_DATA.map(({id,label, question}, index) => (
+              <Box  
+              key={id + index}
                 sx={{
                   backgroundColor: "inherit",
                   height: "100%",
@@ -127,6 +126,7 @@ function CreateAccount() {
                   transition: "opacity 0.5s, transform 0.5s",
                   display: "flex",
                   flexDirection: "column",
+                  gap:"10px"
                 }}
               >
                 <Typography variant="body1" component="p" fontSize={19} my={5}>
@@ -134,10 +134,12 @@ function CreateAccount() {
                 </Typography>
                 <CustomTextField
                   required
-                  id="firstName"
-                  label="First Name"
+                  id={id}
+                  label={label}
                   variant="standard"
                 />
+                
+                <Button variant="contained" endIcon={<Send/>}  sx={{width:"15%", my:"13px", bgcolor: "#3c115f", ":hover":{bgcolor: "#3c115f"}}}>ok</Button>
               </Box>
             ))}
           </Grid>

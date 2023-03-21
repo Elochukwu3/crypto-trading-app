@@ -19,10 +19,5 @@ export const FORM_DATA = [
     id: "passcode",
     label: "PassWord",
     question: ".... put a strong password *",
-  },
-  {
-    id: "passcode",
-    label: "PassWord",
-    question: ".... put a strong password *",
-  },
+  }
 ];
