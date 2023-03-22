@@ -16,6 +16,20 @@ import { FORM_DATA } from "../asset/data/data1";
 import { Send } from "@mui/icons-material";
 
 
+// let enable = Boolean(inputTag.value);
+ 
+// if (enable) {   
+//     for (let index = 0; index < formsInner.length; index++) {
+//         formsInner[index].style.transform = `translateY(-${slidePosition}00%)`;
+//       }
+//       slidePosition++;
+//       counter ++;
+  
+//     if (slidePosition > formsInner.length - 1 || slidePosition == 5) {
+//       slidePosition = 0;
+//     } 
+// }
+
 const CustomTextField = styled(TextField)({
   width: "100%",
   backgroundColor: "white",
