@@ -52,6 +52,18 @@ Object.entries(countries).map(([a, b]) => {
 function CreateAccount() {
   const [options, setOptions] = useState([]);
   const [open, setOpen] = useState(false);
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  const nextSlide = () => {
+    setCurrentIndex(currentIndex === FORM_DATA.length - 1 ? 0 : currentIndex + 1);
+  };
+
+  const prevSlide = () => {
+    setCurrentIndex(currentIndex === 0 ? FORM_DATA.length - 1 : currentIndex - 1);
+  };
+  // const carouselStyle = {
+    
+  // };
   const loading = open && options.length === 0;
 
   useEffect(() => {
@@ -125,8 +137,9 @@ function CreateAccount() {
             sx={{
               height: {sm:"50vh", xs:"43vh"},
               overflowY: "hidden",
-  
+              
             }}
+            
           >
             {FORM_DATA.map(({id,label, question}, index) => (
               <Box  
@@ -136,12 +149,14 @@ function CreateAccount() {
                   height: "100%",
                   width: "100%",
                   opacity: 1,
-                  transform: "translateY(0)",
+                  // transform: "translateY(0)",
                   transition: "opacity 0.5s, transform 0.5s",
                   display: "flex",
                   flexDirection: "column",
-                  gap:"10px"
+                  gap:"10px",
+                  transform: `translateY(-${currentIndex * 100}%)`
                 }}
+                // style={carouselStyle}
               >
                 <Typography variant="body1" component="p" fontSize={19} my={5}>
                   {question}
@@ -153,7 +168,7 @@ function CreateAccount() {
                   variant="standard"
                 />
                 
-                <Button variant="contained" endIcon={<Send/>}  sx={{width:"15%", my:"13px", bgcolor: "#3c115f", ":hover":{bgcolor: "#3c115f"}}}>ok</Button>
+                <Button variant="contained" endIcon={<Send/>}  sx={{width:"15%", my:"13px", bgcolor: "#3c115f", ":hover":{bgcolor: "#3c115f"}}} onClick={nextSlide}>ok</Button>
               </Box>
             ))}
           </Grid>
