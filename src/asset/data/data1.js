@@ -16,7 +16,7 @@ export const FORM_DATA = [
       " What email address can we reach you at? This is only to get in touch, not to send spam.This question is required. ",
   },
   {
-    id: "passcode",
+    id: "password",
     label: "PassWord",
     question: ".... put a strong password *",
   }

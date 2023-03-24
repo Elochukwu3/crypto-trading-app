@@ -34,7 +34,9 @@ const CustomTextField = styled(TextField)({
   width: "100%",
   backgroundColor: "white",
   // marginBottom: "20px",
+  // borderBottom:"2px solid red",
   "& fieldset": { borderRadius: "30px" },
+  ":focus": {borderBottom:"2px solid #3c115f",}
 });
 
 function sleep(delay = 0) {
@@ -53,17 +55,26 @@ function CreateAccount() {
   const [options, setOptions] = useState([]);
   const [open, setOpen] = useState(false);
   const [currentIndex, setCurrentIndex] = useState(0);
+  const [value, setValue] = useState({
+    firstName:"",
+    lastName:"",
+    password:"",
+    email:""
+  });
+// const {firstName, lastName, password, email} = value;
+  const onInputChange =(e)=> setValue((prev)=> ({...prev,  [e.target.name]: e.target.value}));
+  const enabled = (item)=> Boolean(item); 
+  const nextSlide = (e) => {
+    enabled(e) && setCurrentIndex(currentIndex === FORM_DATA.length - 1 ? 0 : currentIndex + 1);
 
-  const nextSlide = () => {
-    setCurrentIndex(currentIndex === FORM_DATA.length - 1 ? 0 : currentIndex + 1);
   };
 
   const prevSlide = () => {
     setCurrentIndex(currentIndex === 0 ? FORM_DATA.length - 1 : currentIndex - 1);
   };
-  // const carouselStyle = {
-    
-  // };
+
+
+ 
   const loading = open && options.length === 0;
 
   useEffect(() => {
@@ -90,7 +101,7 @@ function CreateAccount() {
   }, [open]);
 
   return (
-    <form noValidate autoComplete="off">
+    <form noValidate autoComplete="off" >
       <NaBar />
       <Container
         sx={{
@@ -100,6 +111,7 @@ function CreateAccount() {
           width: "auto  ",
           bgcolor: "white",
           mt: 6,
+          
         }}
       >
         <Box
@@ -149,16 +161,14 @@ function CreateAccount() {
                   height: "100%",
                   width: "100%",
                   opacity: 1,
-                  // transform: "translateY(0)",
                   transition: "opacity 0.5s, transform 0.5s",
                   display: "flex",
                   flexDirection: "column",
                   gap:"10px",
                   transform: `translateY(-${currentIndex * 100}%)`
                 }}
-                // style={carouselStyle}
               >
-                <Typography variant="body1" component="p" fontSize={19} my={5}>
+                <Typography variant="body1" component="p" fontSize={19} my={2}>
                   {question}
                 </Typography>
                 <CustomTextField
@@ -166,9 +176,11 @@ function CreateAccount() {
                   id={id}
                   label={label}
                   variant="standard"
+                  onChange = {onInputChange}
+                  name = {id}
                 />
                 
-                <Button variant="contained" endIcon={<Send/>}  sx={{width:"15%", my:"13px", bgcolor: "#3c115f", ":hover":{bgcolor: "#3c115f"}}} onClick={nextSlide}>ok</Button>
+                <Button variant="contained" endIcon={<Send/>}  sx={{width:"15%", my:"13px", bgcolor: "#3c115f", ":hover":{bgcolor: "#3c115f"}}} onClick={()=> nextSlide(value[id])}>ok</Button>
               </Box>
             ))}
           </Grid>
