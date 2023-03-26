@@ -1,103 +1,64 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import {
   Box,
   Container,
   TextField,
-  Autocomplete,
   Typography,
   Grid,
   Button,
   styled,
 } from "@mui/material";
-import CircularProgress from "@mui/material/CircularProgress";
-import { countries } from "../asset/countries";
 import NaBar from "./NaBar";
 import { FORM_DATA } from "../asset/data/data1";
 import { Send } from "@mui/icons-material";
 
-
-
 const CustomTextField = styled(TextField)({
   width: "100%",
   backgroundColor: "white",
-  // marginBottom: "20px",
-  // borderBottom:"2px solid red",
   "& fieldset": { borderRadius: "30px" },
-  ":focus": {borderBottom:"2px solid #3c115f",}
+  ":focus": { borderBottom: "2px solid #3c115f" },
 });
 
-function sleep(delay = 0) {
-  return new Promise((resolve) => {
-    setTimeout(resolve, delay);
-  });
-}
 
-const data = [];
-Object.entries(countries).map(([a, b]) => {
-  data.push(b);
-  return data;
-});
 
 function CreateAccount() {
-  const [options, setOptions] = useState([]);
-  const [open, setOpen] = useState(false);
   const [valid, setValid] = useState("purple");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [value, setValue] = useState({
-    firstName:"",
-    lastName:"",
-    password:"",
-    email:""
+    firstName: "",
+    lastName: "",
+    password: "",
+    email: "",
   });
 
-  const onInputChange =(e)=> setValue((prev)=> ({...prev,  [e.target.name]: e.target.value}));
-  const enabled = (item)=> Boolean(item); 
- 
-  const nextSlide = (event, param) => {
-    enabled(param) && setCurrentIndex(currentIndex === FORM_DATA.length - 1 ? 0 : currentIndex + 1);
+  const onInputChange = (e) => {
+    setValue((prev) => ({ ...prev, [e.target.name]: e.target.value }));
+    valid === "red" && setValid("purple");
+  };
+  const enabled = (item) => Boolean(item);
 
+  const nextSlide = (event, param) => {
+    enabled(param) &&
+      setCurrentIndex(
+        currentIndex === FORM_DATA.length - 1 ?  4 : currentIndex + 1
+      );
+console.log(currentIndex);
     const parent = event.target.parentElement;
     const elem = parent.querySelector("input");
 
-   
-    if(elem.value.trim() === "") ? setValid("red") :setValid("purple");
-    
-    
+    elem.value.trim() === "" ? setValid("red") : setValid("purple");
   };
 
   const prevSlide = () => {
-    setCurrentIndex(currentIndex === 0 ? FORM_DATA.length - 1 : currentIndex - 1);
+    setCurrentIndex(
+      currentIndex === 0 ? FORM_DATA.length - 1 : currentIndex - 1
+    );
   };
 
-
  
-  const loading = open && options.length === 0;
-
-  useEffect(() => {
-    let active = true;
-    if (!loading) {
-      return undefined;
-    }
-    (async () => {
-      await sleep(1e3);
-      if (active) {
-        setOptions([...data]);
-      }
-    })();
-
-    return () => {
-      active = false;
-    };
-  }, [loading]);
-
-  useEffect(() => {
-    if (!open) {
-      setOptions([]);
-    }
-  }, [open]);
 
   return (
-    <form noValidate autoComplete="off" >
+    <form noValidate autoComplete="off">
       <NaBar />
       <Container
         sx={{
@@ -107,7 +68,6 @@ function CreateAccount() {
           width: "auto  ",
           bgcolor: "white",
           mt: 6,
-          
         }}
       >
         <Box
@@ -143,15 +103,13 @@ function CreateAccount() {
           <Grid
             container
             sx={{
-              height: {sm:"50vh", xs:"43vh"},
+              height: { sm: "50vh", xs: "43vh" },
               overflowY: "hidden",
-              
             }}
-            
           >
-            {FORM_DATA.map(({id,label, question}, index) => (
-              <Box  
-              key={id + index}
+            {FORM_DATA.map(({ id, label, question }, index) => (
+              <Box
+                key={id + index}
                 sx={{
                   backgroundColor: "inherit",
                   height: "100%",
@@ -160,65 +118,54 @@ function CreateAccount() {
                   transition: "opacity 0.5s, transform 0.5s",
                   display: "flex",
                   flexDirection: "column",
-                  gap:"10px",
-                  transform: `translateY(-${currentIndex * 100}%)`
+                  transform: `translateY(-${currentIndex * 100}%)`,
                 }}
               >
                 <Typography variant="body1" component="p" fontSize={19} my={2}>
                   {question}
                 </Typography>
                 <CustomTextField
-                  required
+                  required="required"
                   id={id}
                   label={label}
                   variant="standard"
-                  onChange = {onInputChange}
-                  name = {id}
-                  style ={{border: `2px solid ${valid}`}}
-                  value = {value[id]}
+                  onChange={onInputChange}
+                  name={id}
+                  style={{ borderBottom: `2px solid ${valid}` }}
+                  value={value[id]}
                 />
-                
-                <Button variant="contained" endIcon={<Send/>}  sx={{width:"15%", my:"13px", bgcolor: "#3c115f", ":hover":{bgcolor: "#3c115f"}}} onClick={(e)=> nextSlide(e, value[id])}>ok</Button>
+                <Typography
+                  variant="body1"
+                  component="span"
+                  fontSize={12}
+                  my={2}
+                  color={"red"}
+                >
+                  {valid === "red" && `invalid ${label} format`}
+                </Typography>
+                <Button
+                  variant="contained"
+                  endIcon={<Send />}
+                  sx={{
+                    width: "15%",
+                    my: "13px",
+                    bgcolor: "#3c115f",
+                    ":hover": { bgcolor: "#3c115f" },
+                  }}
+                  onClick={(e) => nextSlide(e, value[id])}
+                >
+                  ok
+                </Button>
               </Box>
             ))}
           </Grid>
 
-          <Button>Select Country</Button>
-          <Autocomplete
-            id="asynchronous-demo"
-            sx={{ width: " 100%", my: 5 }}
-            open={open}
-            onOpen={() => {
-              setOpen(true);
-            }}
-            onClose={() => {
-              setOpen(false);
-            }}
-            isOptionEqualToValue={(option, value) => option === value}
-            getOptionLabel={(option) => option}
-            options={options}
-            loading={loading}
-            renderInput={(params) => (
-              <TextField
-                {...params}
-                label="Country"
-                InputProps={{
-                  ...params.InputProps,
-                  endAdornment: (
-                    <>
-                      {loading ? (
-                        <CircularProgress color="inherit" size={20} />
-                      ) : null}
-                      {params.InputProps.endAdornment}
-                    </>
-                  ),
-                }}
-              />
-            )}
-          />
-          <Button variant="contained" color="primary">
-            Create Account
-          </Button>
+         {
+     currentIndex === 4 && <Button variant="contained" color="primary"  sx={{ bgcolor: "#3c115f", ":hover": { bgcolor: "#3c115f" }, }}>
+          Create Account
+        </Button>
+         }
+          
         </Box>
       </Container>
     </form>
