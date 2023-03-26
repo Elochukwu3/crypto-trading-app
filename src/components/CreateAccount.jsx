@@ -42,18 +42,18 @@ function CreateAccount() {
       setCurrentIndex(
         currentIndex === FORM_DATA.length - 1 ?  4 : currentIndex + 1
       );
-console.log(currentIndex);
+
     const parent = event.target.parentElement;
     const elem = parent.querySelector("input");
 
     elem.value.trim() === "" ? setValid("red") : setValid("purple");
   };
 
-  const prevSlide = () => {
-    setCurrentIndex(
-      currentIndex === 0 ? FORM_DATA.length - 1 : currentIndex - 1
-    );
-  };
+  // const prevSlide = () => {
+  //   setCurrentIndex(
+  //     currentIndex === 0 ? FORM_DATA.length - 1 : currentIndex - 1
+  //   );
+  // };
 
  
 
