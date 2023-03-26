@@ -16,19 +16,6 @@ import { FORM_DATA } from "../asset/data/data1";
 import { Send } from "@mui/icons-material";
 
 
-// let enable = Boolean(inputTag.value);
- 
-// if (enable) {   
-//     for (let index = 0; index < formsInner.length; index++) {
-//         formsInner[index].style.transform = `translateY(-${slidePosition}00%)`;
-//       }
-//       slidePosition++;
-//       counter ++;
-  
-//     if (slidePosition > formsInner.length - 1 || slidePosition == 5) {
-//       slidePosition = 0;
-//     } 
-// }
 
 const CustomTextField = styled(TextField)({
   width: "100%",
@@ -54,6 +41,7 @@ Object.entries(countries).map(([a, b]) => {
 function CreateAccount() {
   const [options, setOptions] = useState([]);
   const [open, setOpen] = useState(false);
+  const [valid, setValid] = useState("purple");
   const [currentIndex, setCurrentIndex] = useState(0);
   const [value, setValue] = useState({
     firstName:"",
@@ -61,12 +49,20 @@ function CreateAccount() {
     password:"",
     email:""
   });
-// const {firstName, lastName, password, email} = value;
+
   const onInputChange =(e)=> setValue((prev)=> ({...prev,  [e.target.name]: e.target.value}));
   const enabled = (item)=> Boolean(item); 
-  const nextSlide = (e) => {
-    enabled(e) && setCurrentIndex(currentIndex === FORM_DATA.length - 1 ? 0 : currentIndex + 1);
+ 
+  const nextSlide = (event, param) => {
+    enabled(param) && setCurrentIndex(currentIndex === FORM_DATA.length - 1 ? 0 : currentIndex + 1);
 
+    const parent = event.target.parentElement;
+    const elem = parent.querySelector("input");
+
+   
+    if(elem.value.trim() === "") ? setValid("red") :setValid("purple");
+    
+    
   };
 
   const prevSlide = () => {
@@ -178,9 +174,11 @@ function CreateAccount() {
                   variant="standard"
                   onChange = {onInputChange}
                   name = {id}
+                  style ={{border: `2px solid ${valid}`}}
+                  value = {value[id]}
                 />
                 
-                <Button variant="contained" endIcon={<Send/>}  sx={{width:"15%", my:"13px", bgcolor: "#3c115f", ":hover":{bgcolor: "#3c115f"}}} onClick={()=> nextSlide(value[id])}>ok</Button>
+                <Button variant="contained" endIcon={<Send/>}  sx={{width:"15%", my:"13px", bgcolor: "#3c115f", ":hover":{bgcolor: "#3c115f"}}} onClick={(e)=> nextSlide(e, value[id])}>ok</Button>
               </Box>
             ))}
           </Grid>
