@@ -11,6 +11,7 @@ import {
 import NaBar from "./NaBar";
 import { FORM_DATA } from "../asset/data/data1";
 import { ArrowDownward, ArrowForwardOutlined, ChevronLeft, ChevronLeftTwoTone, Send } from "@mui/icons-material";
+import zIndex from "@mui/material/styles/zIndex";
 
 const CustomTextField = styled(TextField)({
   width: "100%",
@@ -23,6 +24,7 @@ const CustomTextField = styled(TextField)({
 
 function CreateAccount() {
   const [valid, setValid] = useState("purple");
+  const [move, setMove] = useState(0);
   const [currentIndex, setCurrentIndex] = useState(0);
   const [value, setValue] = useState({
     firstName: "",
@@ -40,9 +42,9 @@ function CreateAccount() {
   const nextSlide = (event, param) => {
     enabled(param) &&
       setCurrentIndex(
-        currentIndex === FORM_DATA.length - 1 ?  4 : currentIndex + 1
+        currentIndex === FORM_DATA.length - 1 ?  currentIndex  : currentIndex + 1
       );
-
+      enabled(param) && setMove(currentIndex)
     const parent = event.target.parentElement;
     const elem = parent.querySelector("input");
 
@@ -51,13 +53,14 @@ function CreateAccount() {
   };
 const outsideNext = ()=>{
   setCurrentIndex(
-    currentIndex === FORM_DATA.length - 1 ?  4 : currentIndex + 1
+    move 
   );
 }
   const prevSlide = () => {
     setCurrentIndex(
       currentIndex === 0 ? 0 : currentIndex - 1
     );
+    console.log(currentIndex);
   };
 
 
@@ -110,11 +113,12 @@ const outsideNext = ()=>{
                     sx={{
                       width: "fit",
                       my: "13px",
-                      bgcolor: "#3c115f",
-                      ":hover": { bgcolor: "#3c115f" },
+                      // bgcolor: "#3c115f",
+                      // ":hover": { bgcolor: "#3c115f" },
                       position:"absolute",
                       right: "1%",
-                      bottom: "0%"
+                      bottom: "0%",
+                      zIndex: 1
                     }}
                    
                   >
