@@ -10,7 +10,7 @@ import {
 } from "@mui/material";
 import NaBar from "./NaBar";
 import { FORM_DATA } from "../asset/data/data1";
-import { Send } from "@mui/icons-material";
+import { ArrowDownward, ArrowForwardOutlined, ChevronLeft, ChevronLeftTwoTone, Send } from "@mui/icons-material";
 
 const CustomTextField = styled(TextField)({
   width: "100%",
@@ -46,16 +46,21 @@ function CreateAccount() {
     const parent = event.target.parentElement;
     const elem = parent.querySelector("input");
 
-    elem.value.trim() === "" ? setValid("red") : setValid("purple");
+   elem.value.trim() === "" ? setValid("red") : setValid("purple");
+   
+  };
+const outsideNext = ()=>{
+  setCurrentIndex(
+    currentIndex === FORM_DATA.length - 1 ?  4 : currentIndex + 1
+  );
+}
+  const prevSlide = () => {
+    setCurrentIndex(
+      currentIndex === 0 ? 0 : currentIndex - 1
+    );
   };
 
-  // const prevSlide = () => {
-  //   setCurrentIndex(
-  //     currentIndex === 0 ? FORM_DATA.length - 1 : currentIndex - 1
-  //   );
-  // };
 
- 
 
   return (
     <form noValidate autoComplete="off">
@@ -67,6 +72,7 @@ function CreateAccount() {
           alignItems: "center",
           width: "auto  ",
           bgcolor: "white",
+          position:"relative",
           mt: 6,
         }}
       >
@@ -75,8 +81,8 @@ function CreateAccount() {
             display: "flex",
             flexDirection: "column",
             alignItems: "center",
+ 
             width: { xs: "100%", sm: "60%" },
-            bgcolor: "",
             m: 0,
             fontFamily: "'Alegreya Sans', sans-serif",
           }}
@@ -99,7 +105,22 @@ function CreateAccount() {
           >
             Kindly provide your you details
           </Typography>
-
+                 <Button
+                    variant="contained"
+                    sx={{
+                      width: "fit",
+                      my: "13px",
+                      bgcolor: "#3c115f",
+                      ":hover": { bgcolor: "#3c115f" },
+                      position:"absolute",
+                      right: "1%",
+                      bottom: "0%"
+                    }}
+                   
+                  >
+                  <ChevronLeftTwoTone sx={{transform: "rotate(90deg)"}} onClick={outsideNext}/>
+                  <ChevronLeftTwoTone sx={{transform: "rotate(-90deg)"}} onClick={prevSlide}/>
+                  </Button>
           <Grid
             container
             sx={{
@@ -125,7 +146,7 @@ function CreateAccount() {
                   {question}
                 </Typography>
                 <CustomTextField
-                  required="required"
+                  required
                   id={id}
                   label={label}
                   variant="standard"
@@ -143,28 +164,30 @@ function CreateAccount() {
                 >
                   {valid === "red" && `invalid ${label} format`}
                 </Typography>
-                <Button
-                  variant="contained"
-                  endIcon={<Send />}
-                  sx={{
-                    width: "15%",
-                    my: "13px",
-                    bgcolor: "#3c115f",
-                    ":hover": { bgcolor: "#3c115f" },
-                  }}
-                  onClick={(e) => nextSlide(e, value[id])}
-                >
-                  ok
-                </Button>
+                {
+                  currentIndex !== FORM_DATA.length - 1 ? (
+                    <Button
+                    variant="contained"
+                    endIcon={<Send />}
+                    sx={{
+                      width: "15%",
+                      my: "13px",
+                      bgcolor: "#3c115f",
+                      ":hover": { bgcolor: "#3c115f" },
+                    }}
+                    onClick={(e) => nextSlide(e, value[id])}
+                  >
+                    ok
+                  </Button>
+                  ): (<Button variant="contained" color="primary"  sx={{ width: "40%", bgcolor: "#3c115f", ":hover": { bgcolor: "#3c115f" }, }}>
+                  Submit
+                </Button>)
+                }
+               
               </Box>
             ))}
           </Grid>
 
-         {
-     currentIndex === 4 && <Button variant="contained" color="primary"  sx={{ bgcolor: "#3c115f", ":hover": { bgcolor: "#3c115f" }, }}>
-          Create Account
-        </Button>
-         }
           
         </Box>
       </Container>
